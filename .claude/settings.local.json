@@ -34,7 +34,10 @@
       "Bash(git branch:*)",
       "Bash(git push:*)",
       "Bash(git fetch:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(for file in app/(marketing)/terms/page.tsx app/faq/page.tsx app/how-to/page.tsx app/cases/page.tsx)",
+      "Bash(do echo \"=== $file ===\")",
+      "Bash(done)"
     ],
     "deny": [],
     "ask": []

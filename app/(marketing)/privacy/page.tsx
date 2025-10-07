@@ -24,7 +24,7 @@ export default function PrivacyPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <div style={{
+      <div className="privacy-container" style={{
         maxWidth: '800px',
         margin: '0 auto',
         padding: '80px 20px',
@@ -542,6 +542,31 @@ export default function PrivacyPage() {
             }}
           >← ホームに戻る</Link>
         </footer>
+
+        <style dangerouslySetInnerHTML={{ __html: `
+          @media (max-width: 768px) {
+            .privacy-container {
+              padding: 80px 16px 40px !important;
+            }
+
+            .privacy-container h1 {
+              font-size: 24px !important;
+            }
+
+            .privacy-container h2 {
+              font-size: 18px !important;
+            }
+
+            .privacy-container h3 {
+              font-size: 15px !important;
+            }
+
+            .privacy-container p,
+            .privacy-container li {
+              font-size: 14px !important;
+            }
+          }
+        `}} />
       </div>
     </>
   );

@@ -108,6 +108,32 @@ export default function FAQIndexPage() {
             transform: translate(4px, 4px) !important;
             box-shadow: 8px 8px 0 #000 !important;
           }
+
+          @media (max-width: 768px) {
+            .faq-container {
+              padding: 80px 16px 40px !important;
+            }
+
+            .faq-title {
+              font-size: 24px !important;
+            }
+
+            .faq-description {
+              font-size: 14px !important;
+            }
+
+            .tool-card {
+              padding: 16px !important;
+            }
+
+            .tool-card h2 {
+              font-size: 18px !important;
+            }
+
+            .tool-card p {
+              font-size: 14px !important;
+            }
+          }
         `}} />
       </div>
       <Footer />
