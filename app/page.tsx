@@ -60,6 +60,37 @@ export default function HomePage() {
           </h1>
         </section>
 
+        {/* Tools Section */}
+        <section className="section tools-section">
+          <div className="section-header">
+            <h2>今使えるツール</h2>
+            <div className="underline"></div>
+          </div>
+
+          <Link href="/tools/delivery-guide" className="tool-card-link">
+            <div className="tool-card-container">
+              <div className="tool-card-content">
+                <div className="tool-badge">BETA</div>
+                <h3>ひとふで案内図</h3>
+                <p>
+                  搬入経路、配送ルート、訪問案内を地図上に描いて共有。
+                  矢印と一言で、誰にでも伝わる案内図が作れます。
+                </p>
+                <span className="tool-link">
+                  案内図を作る →
+                </span>
+              </div>
+              <div className="tool-card-image">
+                <img src="/saumple1.png" alt="ひとふで案内図のサンプル" />
+              </div>
+            </div>
+          </Link>
+
+          <p className="tools-note">
+            その他のツールは準備中です。順次追加していきます。
+          </p>
+        </section>
+
         {/* About Section */}
         <section className="section about-section">
           <div className="section-header">
@@ -89,32 +120,6 @@ export default function HomePage() {
               <p>経路図、訪問ルート、会場案内など、わかりやすい案内をすぐ形に。</p>
             </div>
           </div>
-        </section>
-
-        {/* Tools Section */}
-        <section className="section tools-section">
-          <div className="section-header">
-            <h2>今使えるツール</h2>
-            <div className="underline"></div>
-          </div>
-
-          <Link href="/tools/delivery-guide" className="tool-card-link">
-            <div className="tool-card">
-              <div className="tool-badge">BETA</div>
-              <h3>ひとふで案内図</h3>
-              <p>
-                搬入経路、配送ルート、訪問案内を地図上に描いて共有。
-                矢印と一言で、誰にでも伝わる案内図が作れます。
-              </p>
-              <span className="tool-link">
-                案内図を作る →
-              </span>
-            </div>
-          </Link>
-
-          <p className="tools-note">
-            その他のツールは準備中です。順次追加していきます。
-          </p>
         </section>
 
         {/* Links Section */}
@@ -459,48 +464,115 @@ export default function HomePage() {
           display: block;
           text-decoration: none;
           color: inherit;
-          margin-bottom: 24px;
+          margin-bottom: 32px;
         }
 
-        .tool-card {
-          padding: 32px;
+        .tool-card-container {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 32px;
+          padding: 40px;
           border: 3px solid #000;
           position: relative;
           background: #fff;
           transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-          box-shadow: 8px 8px 0 #000;
+          box-shadow: 12px 12px 0 #000;
           cursor: pointer;
+          align-items: center;
+          overflow: hidden;
         }
 
-        :global(.tool-card-link:hover) .tool-card {
-          transform: translate(4px, 4px);
-          box-shadow: 4px 4px 0 #000;
+        .tool-card-container::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+          transition: left 0.6s ease;
+        }
+
+        :global(.tool-card-link:hover) .tool-card-container::before {
+          left: 100%;
+        }
+
+        :global(.tool-card-link:hover) .tool-card-container {
+          transform: translate(6px, 6px);
+          box-shadow: 6px 6px 0 #000;
+        }
+
+        .tool-card-content {
+          position: relative;
+          z-index: 1;
         }
 
         .tool-badge {
-          position: absolute;
-          top: -12px;
-          right: 24px;
+          display: inline-block;
           background: #000;
           color: #fff;
-          padding: 4px 16px;
+          padding: 6px 20px;
           font-size: 12px;
           font-weight: bold;
-          letter-spacing: 1px;
+          letter-spacing: 2px;
+          margin-bottom: 20px;
+          position: relative;
         }
 
-        .tool-card h3 {
-          font-size: 20px;
+        .tool-badge::after {
+          content: '';
+          position: absolute;
+          bottom: -4px;
+          left: 0;
+          width: 100%;
+          height: 4px;
+          background: #666;
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform 0.3s ease;
+        }
+
+        :global(.tool-card-link:hover) .tool-badge::after {
+          transform: scaleX(1);
+        }
+
+        .tool-card-content h3 {
+          font-size: 24px;
           font-weight: bold;
           margin-bottom: 16px;
           color: #000;
+          line-height: 1.4;
         }
 
-        .tool-card p {
+        .tool-card-content p {
           font-size: 15px;
           line-height: 1.8;
           color: #555;
           margin-bottom: 24px;
+        }
+
+        .tool-card-image {
+          position: relative;
+          overflow: hidden;
+          border: 2px solid #ddd;
+          background: #f5f5f5;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        :global(.tool-card-link:hover) .tool-card-image {
+          border-color: #ddd;
+          transform: scale(1.05);
+        }
+
+        .tool-card-image img {
+          width: 100%;
+          height: auto;
+          display: block;
+          transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        :global(.tool-card-link:hover) .tool-card-image img {
+          transform: scale(1.05);
         }
 
         .tool-link {
@@ -511,21 +583,22 @@ export default function HomePage() {
           font-size: 16px;
           position: relative;
           transition: all 0.3s ease;
+          padding-bottom: 4px;
         }
 
         .tool-link::after {
           content: '';
           position: absolute;
-          bottom: -4px;
+          bottom: 0;
           left: 0;
           width: 0;
-          height: 2px;
+          height: 3px;
           background: #000;
           transition: width 0.3s ease;
         }
 
         :global(.tool-card-link:hover) .tool-link {
-          transform: translateX(4px);
+          transform: translateX(6px);
         }
 
         :global(.tool-card-link:hover) .tool-link::after {
@@ -537,6 +610,8 @@ export default function HomePage() {
           color: #999;
           text-align: center;
           margin-top: 24px;
+          padding: 16px;
+          border-top: 1px dashed #ddd;
         }
 
         /* Links List */
@@ -688,8 +763,18 @@ export default function HomePage() {
             grid-template-columns: 1fr;
           }
 
-          .tool-card {
+          .tool-card-container {
+            grid-template-columns: 1fr;
             padding: 24px;
+            gap: 20px;
+          }
+
+          .tool-card-content h3 {
+            font-size: 20px;
+          }
+
+          .tool-card-image {
+            order: -1;
           }
 
           .changelog-item {
