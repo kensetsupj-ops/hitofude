@@ -26,7 +26,15 @@
       "Bash(npx @sentry/wizard:*)",
       "Bash(npm install:*)",
       "Bash(git init:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nVercelデプロイ準備完了・アクセス解析ツール実装\n\n主な変更内容:\n- Vercelデプロイ準備完了（ビルドテスト成功）\n- アクセス解析ツール実装（Google Analytics, Microsoft Clarity, Sentry）\n- Discordウェブフック統合（お問い合わせ・フィードバック）\n- プライバシーポリシー更新（アクセス解析ツール利用について追加）\n- お問い合わせページメールアドレス更新\n- デプロイ手順書作成（docs/vercel-deployment-guide.md）\n- アクセス解析ツール使い方ガイド作成（docs/analytics-tools-guide.md）\n- .env.local.exampleのセキュリティ修正（APIキーをプレースホルダーに置換）\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git config:*)",
+      "Bash(gh:*)",
+      "Bash(git remote add:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "Bash(git fetch:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []
