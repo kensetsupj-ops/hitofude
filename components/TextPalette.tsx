@@ -198,7 +198,7 @@ export default function TextPalette({
         position: 'fixed',
         left: `${currentPosition.x}px`,
         top: `${currentPosition.y}px`,
-        zIndex: 1000,
+        zIndex: 9999,
         cursor: isDragging ? 'grabbing' : 'grab',
       }}
     >

@@ -874,7 +874,7 @@ export default function Toolbar({
           border: 1px solid #dee2e6;
           border-radius: 6px;
           box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-          z-index: 1000;
+          z-index: 9999;
           margin-top: 4px;
           min-width: 120px;
         }
