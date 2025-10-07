@@ -4,9 +4,25 @@ import Link from 'next/link';
 
 interface HeaderProps {
   onFeedbackClick?: () => void;
+  isToolPage?: boolean;
 }
 
-export default function Header({ onFeedbackClick }: HeaderProps) {
+export default function Header({ onFeedbackClick, isToolPage = false }: HeaderProps) {
+  const handleScrollTo = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const headerHeight = 52; // ヘッダーの高さ
+      const additionalOffset = 28; // 追加の余白
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition - headerHeight - additionalOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return (
     <header className="header">
       <div className="header-content">
@@ -24,9 +40,19 @@ export default function Header({ onFeedbackClick }: HeaderProps) {
         <nav className="header-nav">
           <Link href="/" className="nav-link">ホーム</Link>
           <Link href="/tools" className="nav-link">ツール一覧</Link>
-          <Link href="/how-to" className="nav-link">使い方</Link>
-          <Link href="/faq" className="nav-link">FAQ</Link>
-          <Link href="/cases" className="nav-link">活用例</Link>
+          {isToolPage ? (
+            <>
+              <Link href="#howto" scroll={false} className="nav-link" onClick={(e) => { e.preventDefault(); handleScrollTo('howto'); }}>使い方</Link>
+              <Link href="#faq" scroll={false} className="nav-link" onClick={(e) => { e.preventDefault(); handleScrollTo('faq'); }}>FAQ</Link>
+              <Link href="#use-cases" scroll={false} className="nav-link" onClick={(e) => { e.preventDefault(); handleScrollTo('use-cases'); }}>活用例</Link>
+            </>
+          ) : (
+            <>
+              <Link href="/how-to" className="nav-link">使い方</Link>
+              <Link href="/faq" className="nav-link">FAQ</Link>
+              <Link href="/cases" className="nav-link">活用例</Link>
+            </>
+          )}
           <Link href="/contact" className="nav-link">お問い合わせ</Link>
           {onFeedbackClick && (
             <button onClick={onFeedbackClick} className="nav-link feedback-btn">
@@ -102,13 +128,12 @@ export default function Header({ onFeedbackClick }: HeaderProps) {
           border: none;
           cursor: pointer;
           padding: 6px 12px;
-          transition: all 0.2s;
+          transition: color 0.2s;
           font-family: inherit;
         }
 
         .nav-link:hover {
           color: #0066cc;
-          background: #f5f5f5;
         }
 
         .feedback-btn {

@@ -496,7 +496,7 @@ export default function DeliveryGuidePage() {
       />
 
       <div className="app-container">
-        <Header onFeedbackClick={() => setShowFeedback(true)} />
+        <Header isToolPage onFeedbackClick={() => setShowFeedback(true)} />
 
       <div className="main-content">
         <Toolbar
