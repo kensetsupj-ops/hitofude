@@ -744,7 +744,7 @@ export default function HomePage() {
 
         @media (max-width: 768px) {
           .page-container {
-            padding: 60px 16px;
+            padding: 100px 16px 40px;
           }
 
           .hero-section {

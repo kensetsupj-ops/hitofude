@@ -111,7 +111,7 @@ export default function HowToIndexPage() {
 
           @media (max-width: 768px) {
             .container {
-              padding: 80px 16px 40px !important;
+              padding: 140px 16px 40px !important;
             }
 
             h1 {

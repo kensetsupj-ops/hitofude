@@ -111,7 +111,7 @@ export default function FAQIndexPage() {
 
           @media (max-width: 768px) {
             .faq-container {
-              padding: 80px 16px 40px !important;
+              padding: 140px 16px 40px !important;
             }
 
             .faq-title {

@@ -546,7 +546,7 @@ export default function PrivacyPage() {
         <style dangerouslySetInnerHTML={{ __html: `
           @media (max-width: 768px) {
             .privacy-container {
-              padding: 80px 16px 40px !important;
+              padding: 140px 16px 40px !important;
             }
 
             .privacy-container h1 {

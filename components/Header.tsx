@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
 
 interface HeaderProps {
   onFeedbackClick?: () => void;
@@ -8,7 +9,18 @@ interface HeaderProps {
 }
 
 export default function Header({ onFeedbackClick, isToolPage = false }: HeaderProps) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   const handleScrollTo = (id: string) => {
+    closeMenu();
     const element = document.getElementById(id);
     if (element) {
       const headerHeight = 52; // ヘッダーの高さ
@@ -37,7 +49,14 @@ export default function Header({ onFeedbackClick, isToolPage = false }: HeaderPr
         <span className="site-description">
           迷わず、すぐ形に。
         </span>
-        <nav className="header-nav">
+
+        {/* ハンバーガーボタン（モバイルのみ） */}
+        <button className="hamburger-btn" onClick={toggleMenu} aria-label="メニュー">
+          <span className="hamburger-icon">☰</span>
+        </button>
+
+        {/* デスクトップナビゲーション */}
+        <nav className="header-nav desktop-nav">
           <Link href="/" className="nav-link">ホーム</Link>
           <Link href="/tools" className="nav-link">ツール一覧</Link>
           {isToolPage ? (
@@ -61,6 +80,35 @@ export default function Header({ onFeedbackClick, isToolPage = false }: HeaderPr
           )}
         </nav>
       </div>
+
+      {/* モバイルメニューオーバーレイ */}
+      {isMenuOpen && (
+        <div className="mobile-menu-overlay" onClick={closeMenu}>
+          <nav className="mobile-menu" onClick={(e) => e.stopPropagation()}>
+            <Link href="/" className="mobile-nav-link" onClick={closeMenu}>ホーム</Link>
+            <Link href="/tools" className="mobile-nav-link" onClick={closeMenu}>ツール一覧</Link>
+            {isToolPage ? (
+              <>
+                <Link href="#howto" scroll={false} className="mobile-nav-link" onClick={(e) => { e.preventDefault(); handleScrollTo('howto'); }}>使い方</Link>
+                <Link href="#faq" scroll={false} className="mobile-nav-link" onClick={(e) => { e.preventDefault(); handleScrollTo('faq'); }}>FAQ</Link>
+                <Link href="#use-cases" scroll={false} className="mobile-nav-link" onClick={(e) => { e.preventDefault(); handleScrollTo('use-cases'); }}>活用例</Link>
+              </>
+            ) : (
+              <>
+                <Link href="/how-to" className="mobile-nav-link" onClick={closeMenu}>使い方</Link>
+                <Link href="/faq" className="mobile-nav-link" onClick={closeMenu}>FAQ</Link>
+                <Link href="/cases" className="mobile-nav-link" onClick={closeMenu}>活用例</Link>
+              </>
+            )}
+            <Link href="/contact" className="mobile-nav-link" onClick={closeMenu}>お問い合わせ</Link>
+            {onFeedbackClick && (
+              <button onClick={() => { closeMenu(); onFeedbackClick(); }} className="mobile-nav-link mobile-feedback-btn">
+                フィードバック
+              </button>
+            )}
+          </nav>
+        </div>
+      )}
 
       <style jsx>{`
         .header {
@@ -165,13 +213,86 @@ export default function Header({ onFeedbackClick, isToolPage = false }: HeaderPr
           }
         }
 
+        /* ハンバーガーボタン */
+        .hamburger-btn {
+          display: none;
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 8px;
+          margin-left: auto;
+        }
+
+        .hamburger-icon {
+          font-size: 28px;
+          color: #000;
+          line-height: 1;
+        }
+
+        /* モバイルメニューオーバーレイ */
+        .mobile-menu-overlay {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.5);
+          z-index: 9999;
+        }
+
+        .mobile-menu {
+          position: absolute;
+          top: 52px;
+          right: 0;
+          width: 280px;
+          max-width: 80vw;
+          background: #fff;
+          border-left: 2px solid #333;
+          border-bottom: 2px solid #333;
+          padding: 16px;
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+        }
+
+        .mobile-nav-link {
+          display: block;
+          padding: 14px 16px;
+          color: #000;
+          text-decoration: none;
+          font-weight: 500;
+          font-size: 15px;
+          border-bottom: 1px solid #e0e0e0;
+          background: none;
+          border-left: none;
+          border-right: none;
+          border-top: none;
+          width: 100%;
+          text-align: left;
+          cursor: pointer;
+          transition: background 0.2s;
+        }
+
+        .mobile-nav-link:hover {
+          background: #f5f5f5;
+        }
+
+        .mobile-nav-link:last-child {
+          border-bottom: none;
+        }
+
+        .mobile-feedback-btn {
+          font-family: inherit;
+        }
+
         @media (max-width: 768px) {
           .header {
             padding: 10px 16px;
           }
 
           .header-content {
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             gap: 12px;
           }
 
@@ -187,18 +308,19 @@ export default function Header({ onFeedbackClick, isToolPage = false }: HeaderPr
             display: none;
           }
 
-          .header-nav {
-            width: 100%;
-            margin-left: 0;
-            justify-content: flex-start;
-            gap: 12px;
-            padding-top: 8px;
-            border-top: 1px solid #e0e0e0;
+          /* デスクトップナビを非表示 */
+          .desktop-nav {
+            display: none !important;
           }
 
-          .nav-link {
-            font-size: 13px;
-            padding: 4px 8px;
+          /* ハンバーガーボタンを表示 */
+          .hamburger-btn {
+            display: block;
+          }
+
+          /* モバイルメニューオーバーレイを表示 */
+          .mobile-menu-overlay {
+            display: block;
           }
         }
       `}</style>
