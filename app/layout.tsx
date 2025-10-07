@@ -78,6 +78,9 @@ export const metadata: Metadata = {
   },
   applicationName: 'ひとふで',
   referrer: 'origin-when-cross-origin',
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || '',
+  },
 };
 
 export const viewport: Viewport = {
