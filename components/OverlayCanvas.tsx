@@ -32,6 +32,11 @@ interface OverlayCanvasProps {
   onTextBackgroundChange?: (background: 'transparent' | 'white') => void;
 }
 
+// 論理座標系の固定サイズ（印刷範囲640×528pxに一致）
+const LOGICAL_WIDTH = 640;
+const LOGICAL_HEIGHT = 528;
+const DPI_SCALE = 2;
+
 export default function OverlayCanvas({
   map,
   overlayView,
@@ -90,6 +95,19 @@ export default function OverlayCanvas({
   useEffect(() => {
     shapesRef.current = shapes;
   }, [shapes]);
+
+  // 座標変換関数：表示座標 → 論理座標（640×528px）
+  const toLogicalCoordinates = useCallback((clientX: number, clientY: number) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return { x: 0, y: 0 };
+
+    const rect = canvas.getBoundingClientRect();
+    // 表示サイズと論理サイズが同じ（640×528px）なので単純変換
+    return {
+      x: clientX - rect.left,
+      y: clientY - rect.top,
+    };
+  }, []);
 
   // 親から受け取った選択状態を内部stateに同期（印刷時の選択解除に対応）
   useEffect(() => {
@@ -1018,9 +1036,8 @@ export default function OverlayCanvas({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    // 論理座標に変換
+    const { x, y } = toLogicalCoordinates(e.clientX, e.clientY);
     const latLng = pixelToLatLng(x, y);
 
     if (!latLng) return;
@@ -1701,9 +1718,8 @@ export default function OverlayCanvas({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    // 論理座標に変換
+    const { x, y } = toLogicalCoordinates(e.clientX, e.clientY);
 
     // 図形をドラッグ中の場合（最優先）
     if (draggingShape && dragStartPos.current) {
@@ -1840,9 +1856,8 @@ export default function OverlayCanvas({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    // 論理座標に変換
+    const { x, y } = toLogicalCoordinates(e.clientX, e.clientY);
 
     // ドラッグ終了時に履歴に記録
     if (draggingShape && draggingShape.pixelDelta) {
@@ -2137,20 +2152,19 @@ export default function OverlayCanvas({
     const canvas = canvasRef.current;
     if (!canvas || !canvas.parentElement) return;
 
-    // 高解像度描画用のスケール係数（印刷品質向上）
-    const DPI_SCALE = 2;
+    // Canvas内部解像度を固定（論理サイズ × DPI_SCALE）
+    canvas.width = LOGICAL_WIDTH * DPI_SCALE;
+    canvas.height = LOGICAL_HEIGHT * DPI_SCALE;
 
-    // 初期サイズ設定（表示サイズ）
-    const displayWidth = canvas.parentElement.clientWidth;
-    const displayHeight = canvas.parentElement.clientHeight;
+    // CSS表示サイズを640×528pxに固定（印刷範囲と一致）
+    canvas.style.width = `${LOGICAL_WIDTH}px`;
+    canvas.style.height = `${LOGICAL_HEIGHT}px`;
 
-    // Canvas内部解像度を高くする
-    canvas.width = displayWidth * DPI_SCALE;
-    canvas.height = displayHeight * DPI_SCALE;
-
-    // CSS表示サイズは元のまま
-    canvas.style.width = `${displayWidth}px`;
-    canvas.style.height = `${displayHeight}px`;
+    // Canvas を中央配置
+    canvas.style.position = 'absolute';
+    canvas.style.top = '50%';
+    canvas.style.left = '50%';
+    canvas.style.transform = 'translate(-50%, -50%)';
 
     // 描画コンテキストをスケーリング
     const ctx = canvas.getContext('2d');
@@ -2158,44 +2172,8 @@ export default function OverlayCanvas({
       ctx.scale(DPI_SCALE, DPI_SCALE);
     }
 
-
-    // ウィンドウリサイズ時のみサイズを更新
-    let resizeTimeout: NodeJS.Timeout;
-    const handleWindowResize = () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(() => {
-        const canvas = canvasRef.current;
-        if (canvas && canvas.parentElement) {
-          const newDisplayWidth = canvas.parentElement.clientWidth;
-          const newDisplayHeight = canvas.parentElement.clientHeight;
-
-          const newCanvasWidth = newDisplayWidth * DPI_SCALE;
-          const newCanvasHeight = newDisplayHeight * DPI_SCALE;
-
-          if (canvas.width !== newCanvasWidth || canvas.height !== newCanvasHeight) {
-            canvas.width = newCanvasWidth;
-            canvas.height = newCanvasHeight;
-            canvas.style.width = `${newDisplayWidth}px`;
-            canvas.style.height = `${newDisplayHeight}px`;
-
-            // スケーリングを再適用
-            const ctx = canvas.getContext('2d');
-            if (ctx) {
-              ctx.scale(DPI_SCALE, DPI_SCALE);
-            }
-
-            setNeedsRedraw(prev => prev + 1);
-          }
-        }
-      }, 100); // デバウンス
-    };
-
-    window.addEventListener('resize', handleWindowResize);
-
-    return () => {
-      window.removeEventListener('resize', handleWindowResize);
-      clearTimeout(resizeTimeout);
-    };
+    // リサイズ時も論理サイズは変更しない
+    // リサイズイベントは不要
   }, []);
 
   // Redraw when shapes or other dependencies change
@@ -2387,9 +2365,8 @@ export default function OverlayCanvas({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    // 論理座標に変換
+    const { x, y } = toLogicalCoordinates(e.clientX, e.clientY);
     const point = { x, y };
 
     // 現在のページの図形のみをフィルター

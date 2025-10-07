@@ -445,6 +445,10 @@ export default function MapView({
         />
       )}
 
+      {/* 印刷範囲枠 */}
+      <div className="print-range-box no-print">
+        <div className="print-range-label">印刷範囲</div>
+      </div>
 
       {/* マーカー削除ボタン */}
       {hasMarker && (
@@ -499,6 +503,35 @@ export default function MapView({
         .map {
           width: 100%;
           height: 100%;
+        }
+
+        /* 印刷範囲枠 */
+        .print-range-box {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 640px;
+          height: 528px;
+          border: 3px dashed #ff0000;
+          pointer-events: none;
+          z-index: 900;
+          box-sizing: border-box;
+          /* 枠外を薄暗くする */
+          box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.35);
+        }
+
+        .print-range-label {
+          position: absolute;
+          top: -28px;
+          left: 0;
+          background: rgba(255, 0, 0, 0.9);
+          color: white;
+          padding: 4px 10px;
+          font-size: 12px;
+          font-weight: bold;
+          border-radius: 4px 4px 0 0;
+          white-space: nowrap;
         }
 
         .map-loading {
