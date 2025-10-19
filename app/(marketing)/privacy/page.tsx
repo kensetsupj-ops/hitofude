@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'ひとふで｜プライバシーポリシー',
+  title: 'プライバシーポリシー｜ひとふで',
   description: '「ひとふで」のプライバシーポリシー。個人情報の取り扱い、Google AdSense・第三者配信、Cookie利用、オプトアウト方法について説明します。',
   alternates: {
     canonical: '/privacy',

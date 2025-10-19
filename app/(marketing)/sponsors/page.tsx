@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'スポンサー募集',
+  title: 'スポンサー募集｜ひとふで',
   description: 'ひとふでのスポンサー募集。案内、チェック、指示、共有を支援するツール群の成長を共に支えていただけるパートナーを募集しています。バナー広告掲載、共同開発など様々な形でのご支援を歓迎します。',
   alternates: {
     canonical: '/sponsors',

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'ツール一覧',
+  title: 'ツール一覧｜ひとふで',
   description: 'ひとふでの各種ツール一覧。案内図作成、チェックリスト、指示書作成など、業務を効率化する無料ツールを提供しています。',
   alternates: {
     canonical: '/tools',

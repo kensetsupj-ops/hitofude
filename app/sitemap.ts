@@ -10,21 +10,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/`,
       lastModified,
       changeFrequency: 'weekly',
-      priority: 1.0,
+      priority: 0.8,
     },
     // ツール一覧
     {
       url: `${baseUrl}/tools`,
       lastModified,
       changeFrequency: 'weekly',
-      priority: 0.95,
+      priority: 0.85,
     },
-    // メインツール
+    // メインツール（最優先）
     {
       url: `${baseUrl}/tools/delivery-guide`,
       lastModified,
-      changeFrequency: 'weekly',
-      priority: 0.9,
+      changeFrequency: 'daily',
+      priority: 1.0,
     },
     // 使い方
     {

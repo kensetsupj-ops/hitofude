@@ -56,7 +56,7 @@ export default function HomePage() {
         <section className={`hero-section ${isVisible ? 'visible' : ''}`}>
           <div className="hero-decoration"></div>
           <h1 className="hero-title">
-            ひとふで｜誰でも迷わず作れるオンラインツール
+            搬入経路図・配送ルート作成ツール【無料・ログイン不要】
           </h1>
         </section>
 

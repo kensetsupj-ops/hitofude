@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'ひとふでについて',
+  title: 'ひとふでについて｜ひとふで',
   description: 'ひとふでのミッション、原則、ストーリー、ロードマップ。誰でも迷わず要点をすぐ形にできるツール群を提供します。',
   alternates: {
     canonical: '/about',
