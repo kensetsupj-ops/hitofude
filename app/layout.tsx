@@ -23,7 +23,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "ひとふで｜誰でも迷わず作れるオンラインツール",
+    default: "ひとふで｜迷わず、すぐ形に。",
     template: "ひとふで｜%s"
   },
   description: "搬入経路、配送ルート、訪問案内を地図上で簡単に作成できる無料ツール。建設、物流、配送、訪問サービス、イベント運営など幅広い用途に対応。ログイン不要、Google Maps連携で今すぐ使えます。",
@@ -46,8 +46,8 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "ひとふで｜誰でも迷わず作れるオンラインツール",
-    description: "搬入経路、配送ルート、訪問案内を地図上で簡単に作成。建設、物流、配送、訪問サービス、イベント運営など幅広い用途に対応。ログイン不要で今すぐ使えます。",
+    title: "ひとふで｜迷わず、すぐ形に。",
+    description: "誰でも迷わず「要点をすぐ形に」できる小さなツール群。案内、チェック、指示、共有まで。無料・ログイン不要で今すぐ使えます。",
     url: "/",
     siteName: "ひとふで",
     locale: "ja_JP",
@@ -63,8 +63,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ひとふで｜誰でも迷わず作れるオンラインツール",
-    description: "搬入経路、配送ルート、訪問案内を地図上で簡単に作成。建設、物流、配送、訪問サービス、イベント運営など幅広く対応。ログイン不要。",
+    title: "ひとふで｜迷わず、すぐ形に。",
+    description: "誰でも迷わず「要点をすぐ形に」できる小さなツール群。無料・ログイン不要で今すぐ使えます。",
     images: ['/og-image.png'],
   },
   robots: {
