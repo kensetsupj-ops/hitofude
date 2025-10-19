@@ -23,7 +23,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "案内図｜搬入経路・配送ルート・訪問案内の作成ツール【無料】",
+    default: "ひとふで｜誰でも迷わず作れるオンラインツール",
     template: "ひとふで｜%s"
   },
   description: "搬入経路、配送ルート、訪問案内を地図上で簡単に作成できる無料ツール。建設、物流、配送、訪問サービス、イベント運営など幅広い用途に対応。ログイン不要、Google Maps連携で今すぐ使えます。",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "案内図｜搬入経路・配送ルート・訪問案内の作成ツール【無料】",
+    title: "ひとふで｜誰でも迷わず作れるオンラインツール",
     description: "搬入経路、配送ルート、訪問案内を地図上で簡単に作成。建設、物流、配送、訪問サービス、イベント運営など幅広い用途に対応。ログイン不要で今すぐ使えます。",
     url: "/",
     siteName: "ひとふで",
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "案内図｜搬入経路・配送ルート・訪問案内の作成ツール【無料】",
+    title: "ひとふで｜誰でも迷わず作れるオンラインツール",
     description: "搬入経路、配送ルート、訪問案内を地図上で簡単に作成。建設、物流、配送、訪問サービス、イベント運営など幅広く対応。ログイン不要。",
     images: ['/og-image.png'],
   },
